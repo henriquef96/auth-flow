@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Controllers\CadastroController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/users', function () {
-    return User::all();
-});
+// Busca de CEP
+Route::get('/cep/{cep}', [CadastroController::class, 'buscarCep']);
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// CRUD de Cadastros
+Route::get('/cadastros', [CadastroController::class, 'index']);          // Listar
+Route::post('/cadastros', [CadastroController::class, 'store']);         // Cadastrar
+Route::put('/cadastros/{id}', [CadastroController::class, 'update']);    // Editar
+Route::delete('/cadastros/{id}', [CadastroController::class, 'destroy']);// Excluir
