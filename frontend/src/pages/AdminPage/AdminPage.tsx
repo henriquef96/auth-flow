@@ -1,7 +1,8 @@
 import type { FormEvent } from 'react'
-import { CadastroForm } from '../components/forms/CadastroForm'
-import { CadastroList } from '../components/list/CadastroList'
-import type { Cadastro, FormValues, User } from '../types'
+import { CadastroForm } from '../../components/forms/CadastroForm'
+import { CadastroList } from '../../components/list/CadastroList'
+import type { Cadastro, FormValues, User } from '../../types'
+import './AdminPage.css'
 
 type AdminPageProps = {
   user: User

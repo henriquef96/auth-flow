@@ -1,4 +1,5 @@
-// Vector person+lock mark using the brand gradient, avoids the blurry raster logo.png at small sizes.
+import './AppLogo.css'
+
 export function AppLogo() {
   return (
     <svg className="app-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

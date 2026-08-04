@@ -1,4 +1,5 @@
 import type { FormEvent } from 'react'
+import './LoginForm.css'
 
 type LoginFormProps = {
   email: string

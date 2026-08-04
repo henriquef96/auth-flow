@@ -1,0 +1,90 @@
+.panel-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.19);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1.6rem 1.6rem 0;
+}
+
+.panel-header h2,
+.panel-header h3 {
+  margin: 0;
+}
+
+.panel-header p {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted);
+  max-width: 32rem;
+}
+
+.form-card {
+  padding: 1.95rem;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-card label {
+  display: grid;
+  gap: 0.55rem;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.form-card input {
+  width: 100%;
+  min-height: 3.25rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  padding: 1rem 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.form-card input::placeholder {
+  color: rgba(246, 241, 233, 0.5);
+}
+
+.form-card input:focus {
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.14);
+}
+
+.error-text {
+  margin: 0.75rem 0 0;
+  color: var(--accent-red);
+  font-size: 0.95rem;
+}
+
+button {
+  min-height: 3.3rem;
+  padding: 0 1.4rem;
+  font-weight: 700;
+  color: #121212;
+  background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-orange) 55%, var(--accent-amber) 100%);
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 18px 35px rgba(251, 191, 36, 0.22);
+  transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

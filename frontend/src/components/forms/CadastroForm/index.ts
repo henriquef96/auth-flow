@@ -1,0 +1,1 @@
+export { CadastroForm } from './CadastroForm'

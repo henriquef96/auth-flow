@@ -1,0 +1,1 @@
+export { CadastroList } from './CadastroList'

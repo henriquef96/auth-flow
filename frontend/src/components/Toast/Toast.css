@@ -1,0 +1,25 @@
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  min-width: min(420px, calc(100vw - 2rem));
+  padding: 1rem 1.25rem;
+  border-radius: 18px;
+  text-align: center;
+  font-weight: 600;
+  background: rgba(18, 18, 18, 0.96);
+  border: 1px solid rgba(249, 115, 22, 0.18);
+  box-shadow: 0 18px 40px rgba(249, 115, 22, 0.18);
+  z-index: 20;
+}
+
+.toast.success {
+  color: #fef3c7;
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+.toast.error {
+  color: #fecaca;
+  border-color: rgba(239, 68, 68, 0.4);
+}

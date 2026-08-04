@@ -3,8 +3,10 @@ import './App.css'
 import { LoginPage } from './pages/LoginPage'
 import { AdminPage } from './pages/AdminPage'
 import { Toast } from './components/Toast'
-import { AppLogo } from './components/AppLogo'
+import { AppHeader } from './components/layout/AppHeader'
 import { buildUrl, fetchJson } from './lib/api'
+import { useAutoDismissToast } from './hooks/useAutoDismissToast'
+import { useCepAutoFill } from './hooks/useCepAutoFill'
 import type { Cadastro, FormValues, ToastState, User } from './types'
 
 const STORAGE_KEY = 'auth_token'
@@ -20,8 +22,6 @@ const initialForm: FormValues = {
   cidade: '',
   uf: '',
 }
-
-type CepLookupResponse = Pick<FormValues, 'cep' | 'logradouro' | 'bairro' | 'cidade' | 'uf'>
 
 function App() {
   const [user, setUser] = useState<User | null>(null)
@@ -39,6 +39,9 @@ function App() {
   const [formLoading, setFormLoading] = useState(false)
   const [searchingCep, setSearchingCep] = useState(false)
   const [toast, setToast] = useState<ToastState>({ message: '', type: 'success' })
+
+  useAutoDismissToast(toast, setToast)
+  useCepAutoFill(form.cep, setForm, setSearchingCep)
 
   useEffect(() => {
     if (!token || user) {
@@ -73,53 +76,6 @@ function App() {
 
     return () => controller.abort()
   }, [token, user])
-
-  useEffect(() => {
-    if (!toast.message) {
-      return
-    }
-
-    const timeout = window.setTimeout(() => {
-      setToast({ message: '', type: 'success' })
-    }, 3200)
-
-    return () => window.clearTimeout(timeout)
-  }, [toast.message])
-
-  useEffect(() => {
-    const cepClean = form.cep.replace(/\D/g, '')
-    if (cepClean.length !== 8) {
-      return
-    }
-
-    const controller = new AbortController()
-    const timeoutId = window.setTimeout(async () => {
-      setSearchingCep(true)
-
-      try {
-        const data = await fetchJson<CepLookupResponse>(buildUrl(`/cep/${cepClean}`), {
-          method: 'GET',
-          signal: controller.signal,
-        })
-
-        setForm((current) => ({
-          ...current,
-          logradouro: data.logradouro || current.logradouro,
-          bairro: data.bairro || current.bairro,
-          cidade: data.cidade || current.cidade,
-          uf: data.uf || current.uf,
-        }))
-      } catch {
-      } finally {
-        setSearchingCep(false)
-      }
-    }, 450)
-
-    return () => {
-      window.clearTimeout(timeoutId)
-      controller.abort()
-    }
-  }, [form.cep])
 
   async function loadCadastros(requestPage: number, tokenValue: string | null = token) {
     try {
@@ -266,27 +222,7 @@ function App() {
 
   return (
     <div className="app-shell">
-      <header className="app-header">
-        <div className="app-brand">
-          <AppLogo />
-          <div>
-            <strong>Auth Flow</strong>
-            <p>Sistema de cadastros com login, edição e listagem</p>
-          </div>
-        </div>
-
-        {user ? (
-          <div className="user-block">
-            <div>
-              <span>Conectado como</span>
-              <strong>{user.name}</strong>
-            </div>
-            <button type="button" className="ghost-button" onClick={handleLogout}>
-              Sair
-            </button>
-          </div>
-        ) : null}
-      </header>
+      <AppHeader user={user} onLogout={handleLogout} />
 
       {toast.message ? <Toast message={toast.message} type={toast.type} /> : null}
 

@@ -1,5 +1,6 @@
 import type { FormEvent } from 'react'
-import type { FormValues } from '../../types'
+import type { FormValues } from '../../../types'
+import './CadastroForm.css'
 
 type CadastroFormProps = {
   form: FormValues

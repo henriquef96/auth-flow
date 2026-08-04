@@ -1,5 +1,6 @@
 import type { FormEvent } from 'react'
-import { LoginForm } from '../components/forms/LoginForm'
+import { LoginForm } from '../../components/forms/LoginForm'
+import './LoginPage.css'
 
 type LoginPageProps = {
   email: string
@@ -25,9 +26,9 @@ export function LoginPage({
       <section className="hero-card">
         <div>
           <span className="eyebrow">Acesso rápido</span>
-          <h1>Entre com segurança e gerencie seus cadastros.</h1><br />
-          <p>
-            Uma experiência de navegação fluida, com interface moderna e responsiva.
+          <h1>Entre com seguranca e gerencie seus cadastros.</h1>
+          <p><br />
+            Uma experiencia de navegacao fluida, com interface moderna e responsiva.
           </p>
         </div>
       </section>
@@ -35,7 +36,7 @@ export function LoginPage({
       <section className="auth-card">
         <div className="panel-header">
           <div>
-            <h2 style={{ fontSize: '2rem' }}>Bem-vindo de volta</h2>
+            <h2 className="login-title">Bem-vindo de volta</h2>
             <p>Insira seu e-mail e senha para acessar.</p><br />
           </div>
         </div>

@@ -1,0 +1,66 @@
+.login-page {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: minmax(320px, 1fr) minmax(360px, 1fr);
+    align-items: center;
+}
+
+.hero-card,
+.auth-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+}
+
+.hero-card {
+    padding: 2rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    background: rgba(251, 191, 36, 0.14);
+    margin-bottom: 10px;
+}
+
+.hero-card h1 {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 3.2rem);
+    line-height: 1.02;
+}
+
+.hero-card p {
+    margin: 0;
+    max-width: 620px;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.auth-card {
+    padding: 2rem;
+}
+
+.login-title {
+    font-size: 2rem;
+}
+
+@media (max-width: 960px) {
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-card {
+        order: -1;
+    }
+}

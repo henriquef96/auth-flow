@@ -1,0 +1,28 @@
+.dashboard-grid {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: minmax(340px, 1fr) minmax(400px, 1.15fr);
+    align-items: start;
+}
+
+.dashboard-column {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+}
+
+.summary-card .panel-header {
+    padding-bottom: 1.6rem;
+}
+
+@media (max-width: 960px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}

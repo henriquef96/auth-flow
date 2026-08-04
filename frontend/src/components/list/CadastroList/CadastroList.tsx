@@ -1,15 +1,5 @@
-type Cadastro = {
-  id: number
-  nome: string
-  email: string
-  cep: string
-  logradouro: string
-  numero: string
-  complemento: string
-  bairro: string
-  cidade: string
-  uf: string
-}
+import type { Cadastro } from '../../../types'
+import './CadastroList.css'
 
 type CadastroListProps = {
   cadastros: Cadastro[]
@@ -22,9 +12,12 @@ type CadastroListProps = {
 
 export function CadastroList({ cadastros, loading, hasMore, onEdit, onDelete, onLoadMore }: CadastroListProps) {
   return (
-    <div className="panel-card table-card">
+    <div className="panel-card table-card cadastro-list-card">
       <div className="panel-header">
-        <h3>Cadastros cadastrados</h3>
+        <div>
+          <h3>Lista de cadastros</h3>
+          <p>Visualize e atualize seus usuários imediatamente.</p>
+        </div>
         <span>{cadastros.length} registros</span>
       </div>
 
@@ -41,10 +34,10 @@ export function CadastroList({ cadastros, loading, hasMore, onEdit, onDelete, on
           <tbody>
             {cadastros.map((cadastro) => (
               <tr key={cadastro.id}>
-                <td>{cadastro.nome}</td>
-                <td>{cadastro.email}</td>
-                <td>{cadastro.cidade}</td>
-                <td>
+                <td data-label="Nome">{cadastro.nome}</td>
+                <td data-label="E-mail">{cadastro.email}</td>
+                <td data-label="Cidade">{cadastro.cidade}</td>
+                <td data-label="Ações" className="actions-cell">
                   <button className="table-button" onClick={() => onEdit(cadastro)}>
                     Editar
                   </button>
