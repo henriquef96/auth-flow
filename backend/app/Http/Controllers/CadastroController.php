@@ -92,7 +92,10 @@ class CadastroController extends Controller
     {
         try {
             $page = $request->get('page', 1);
-            $cadastros = Cadastro::paginate(5, ['*'], 'page', $page);
+            $cadastros = Cadastro::query()
+                ->orderByDesc('created_at')
+                ->orderByDesc('id')
+                ->paginate(5, ['*'], 'page', $page);
 
             return response()->json($cadastros->items(), 200);
         } catch (Exception $e) {
