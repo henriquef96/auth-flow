@@ -1,13 +1,17 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CadastroController;
 use Illuminate\Support\Facades\Route;
 
-// Busca de CEP
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/me', [AuthController::class, 'me'])->middleware('jwt');
+
 Route::get('/cep/{cep}', [CadastroController::class, 'buscarCep']);
 
-// CRUD de Cadastros
-Route::get('/cadastros', [CadastroController::class, 'index']);          // Listar
-Route::post('/cadastros', [CadastroController::class, 'store']);         // Cadastrar
-Route::put('/cadastros/{id}', [CadastroController::class, 'update']);    // Editar
-Route::delete('/cadastros/{id}', [CadastroController::class, 'destroy']);// Excluir
+Route::middleware('jwt')->group(function () {
+    Route::get('/cadastros', [CadastroController::class, 'index']);
+    Route::post('/cadastros', [CadastroController::class, 'store']);
+    Route::put('/cadastros/{id}', [CadastroController::class, 'update']);
+    Route::delete('/cadastros/{id}', [CadastroController::class, 'destroy']);
+});
