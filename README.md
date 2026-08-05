@@ -45,7 +45,7 @@ docker-compose.yml
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/henriquef96/auth-flow>
+git clone https://github.com/henriquef96/auth-flow
 cd auth-flow
 ```
 
