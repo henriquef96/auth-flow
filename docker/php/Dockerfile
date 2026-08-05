@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libpq-dev \
     postgresql-client \
+    nginx \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -27,6 +28,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer config --global process-timeout 0
 
 COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /var/www/html
 
