@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://auth-flow-backend-cb4t.onrender.com/api'
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (isLocal ? 'http://localhost:8000/api' : 'https://auth-flow-backend-cb4t.onrender.com/api')
 
 export function buildUrl(path: string) {
   const cleanPath = path.startsWith('/') ? path : `/${path}`
