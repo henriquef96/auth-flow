@@ -49,22 +49,12 @@ git clone https://github.com/henriquef96/auth-flow
 cd auth-flow
 ```
 
-### 2. Configurar variáveis de ambiente do backend
-
-```bash
-cd backend
-cp .env.example .env
-```
-
-O `.env.example` já vem configurado para os serviços do Docker Compose (`DB_HOST=postgres_db`, `DB_CONNECTION=pgsql`, etc). Ajuste apenas se necessário.
-
-### 3. Subir os containers
+### 2. Subir os containers
 
 Na raiz do projeto:
 
 ```bash
 docker compose up -d --build
-docker compose up -d
 ```
 
 Isso sobe três serviços:
@@ -75,22 +65,13 @@ Isso sobe três serviços:
 | `nginx`    | Servidor web, expõe a API           | 8000        |
 | `database` | PostgreSQL                          | 5432        |
 
-O `entrypoint.sh` do container `app` instala automaticamente as dependências do Composer no primeiro start.
-
-### 4. Preparar a aplicação Laravel
-
-Com os containers no ar, rode dentro do container `app`:
-
-```bash
-docker compose exec app php artisan key:generate
-docker compose exec app php artisan migrate --seed
-```
+O `entrypoint.sh` do container `app` instala automaticamente as dependências do Composer no primeiro start, além de gerar a chave de app, migração e inserçaõ de dados fake.
 
 O seeder cria um usuário de teste:
 - **E-mail:** `admin@authflow.test`
 - **Senha:** `admin@test`
 
-### 5. Rodar o frontend
+### 3. Rodar o frontend
 
 O frontend não está dockerizado, deve ser executado localmente:
 
@@ -107,7 +88,6 @@ A aplicação abrirá em `http://localhost:5173` (padrão do Vite), com o proxy 
 **Backend** (dentro de `backend/`):
 ```bash
 php artisan test      # roda a suíte de testes (PHPUnit)
-php artisan migrate   # roda as migrations
 ```
 
 **Endpoints disponíveis**
