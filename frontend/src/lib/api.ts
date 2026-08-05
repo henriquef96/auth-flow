@@ -1,7 +1,8 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://auth-flow-backend-cb4t.onrender.com/api'
 
 export function buildUrl(path: string) {
-  return `${API_BASE_URL}${path}`
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  return `${API_BASE_URL}${cleanPath}`
 }
 
 export function getAuthHeaders(token?: string | null): HeadersInit | undefined {
