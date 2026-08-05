@@ -78,5 +78,5 @@ echo "=================================="
 echo "Laravel iniciado com sucesso!"
 echo "=================================="
 
-nginx &
+nginx
 exec "$@"
