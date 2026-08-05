@@ -102,9 +102,3 @@ php artisan test      # roda a suíte de testes (PHPUnit)
 | PUT    | `/api/cadastros/{id}`  | Sim         | Atualiza um cadastro                  |
 | DELETE | `/api/cadastros/{id}`  | Sim         | Remove um cadastro                    |
 
-**Frontend** (dentro de `frontend/`):
-```bash
-npm run dev       # dev server
-npm run build     # build de produção
-```
-
