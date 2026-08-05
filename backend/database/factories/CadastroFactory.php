@@ -7,11 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CadastroFactory extends Factory
 {
-    /**
-     * Cadastro
-     *
-     * @var string
-     */
     protected $model = Cadastro::class;
 
     public function definition(): array
