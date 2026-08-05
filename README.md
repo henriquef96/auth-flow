@@ -64,6 +64,7 @@ Na raiz do projeto:
 
 ```bash
 docker compose up -d --build
+docker compose up -d
 ```
 
 Isso sobe três serviços:
