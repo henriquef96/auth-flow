@@ -39,7 +39,10 @@ fi
 
 echo "Aguardando PostgreSQL..."
 
-until pg_isready -h postgres_db -p 5432 -U postgres; do
+DB_HOST_PROD=${DB_HOST:-postgres_db}
+DB_USER_PROD=${DB_USERNAME:-postgres}
+
+until pg_isready -h "$DB_HOST_PROD" -p 5432 -U "$DB_USER_PROD"; do
     sleep 2
 done
 
