@@ -17,15 +17,15 @@ class CadastroFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'cep' => fake()->postcode(),
-            'logradouro' => fake()->streetName(),
-            'numero' => fake()->buildingNumber(),
-            'complemento' => fake()->optional()->secondaryAddress(),
-            'bairro' => fake()->word(),
-            'cidade' => fake()->city(),
-            'uf' => fake()->stateAbbr(),
+            'nome' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'cep' => $this->faker->postcode(),
+            'logradouro' => $this->faker->streetName(),
+            'numero' => $this->faker->buildingNumber(),
+            'complemento' => $this->faker->optional()->secondaryAddress(),
+            'bairro' => $this->faker->word(),
+            'cidade' => $this->faker->city(),
+            'uf' => $this->faker->stateAbbr(),
         ];
     }
 }
