@@ -31,10 +31,20 @@ if [ ! -f "vendor/autoload.php" ]; then
 
     export COMPOSER_PROCESS_TIMEOUT=0
 
-    composer install \
-        --no-interaction \
-        --prefer-dist \
-        --optimize-autoloader
+    if [ "$APP_ENV" = "production" ]; then
+        echo "Ambiente de Produção detectado: instalando sem pacotes de desenvolvimento..."
+        composer install \
+            --no-interaction \
+            --prefer-dist \
+            --optimize-autoloader \
+            --no-dev
+    else
+        echo "Ambiente de Desenvolvimento detectado: instalando com todas as dependências..."
+        composer install \
+            --no-interaction \
+            --prefer-dist \
+            --optimize-autoloader
+    fi
 fi
 
 echo "Aguardando PostgreSQL..."
