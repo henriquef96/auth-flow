@@ -38,10 +38,12 @@ function App() {
   const [editingId, setEditingId] = useState<number | null>(null)
   const [formLoading, setFormLoading] = useState(false)
   const [searchingCep, setSearchingCep] = useState(false)
+  const [cepStatusMessage, setCepStatusMessage] = useState('')
+  const [cepStatusType, setCepStatusType] = useState<'neutral' | 'loading' | 'error'>('neutral')
   const [toast, setToast] = useState<ToastState>({ message: '', type: 'success' })
 
   useAutoDismissToast(toast, setToast)
-  useCepAutoFill(form.cep, setForm, setSearchingCep)
+  useCepAutoFill(form.cep, setForm, setSearchingCep, setCepStatusMessage, setCepStatusType)
 
   useEffect(() => {
     if (!token || user) {
@@ -153,6 +155,8 @@ function App() {
 
       setToast({ message: payload.mensagem || 'Cadastro salvo com sucesso.', type: 'success' })
       setForm(initialForm)
+      setCepStatusMessage('')
+      setCepStatusType('neutral')
       setEditingId(null)
       await loadCadastros(1)
     } catch (error) {
@@ -163,6 +167,11 @@ function App() {
   }
 
   function handleFormChange(field: keyof FormValues, value: string) {
+    if (field === 'cep') {
+      setCepStatusMessage('')
+      setCepStatusType('neutral')
+    }
+
     setForm((current) => ({ ...current, [field]: value }))
   }
 
@@ -211,6 +220,8 @@ function App() {
   function handleCancelEdit() {
     setEditingId(null)
     setForm(initialForm)
+    setCepStatusMessage('')
+    setCepStatusType('neutral')
   }
 
   function handleLogout() {
@@ -247,6 +258,8 @@ function App() {
           form={form}
           formLoading={formLoading}
           searchingCep={searchingCep}
+          cepStatusMessage={cepStatusMessage}
+          cepStatusType={cepStatusType}
           onFormChange={handleFormChange}
           onSubmit={handleSubmitCadastro}
           onCancel={handleCancelEdit}

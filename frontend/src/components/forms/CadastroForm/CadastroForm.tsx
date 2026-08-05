@@ -6,6 +6,8 @@ type CadastroFormProps = {
   form: FormValues
   loading: boolean
   searchingCep: boolean
+  cepStatusMessage: string
+  cepStatusType: 'neutral' | 'loading' | 'error'
   editingId: number | null
   onChange: (field: keyof FormValues, value: string) => void
   onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
@@ -16,17 +18,23 @@ export function CadastroForm({
   form,
   loading,
   searchingCep,
+  cepStatusMessage,
+  cepStatusType,
   editingId,
   onChange,
   onSubmit,
   onCancel,
 }: CadastroFormProps) {
+  const statusMessage = cepStatusMessage || (searchingCep ? 'Consultando CEP...' : 'Preencha os dados abaixo.')
+  const statusClassName =
+    cepStatusType === 'loading' ? 'cep-status cep-status-loading' : cepStatusType === 'error' ? 'cep-status cep-status-error' : ''
+
   return (
     <form onSubmit={onSubmit} className="panel-card form-card cadastro-form">
       <div className="panel-header">
         <div>
           <h3>{editingId ? 'Editar cadastro' : 'Novo cadastro'}</h3>
-          <p>{searchingCep ? 'Consultando CEP...' : 'Preencha os dados abaixo.'}</p>
+          <p className={statusClassName}>{statusMessage}</p>
         </div>
         {editingId ? <span>Modo de edição</span> : null}
       </div>
@@ -57,7 +65,10 @@ export function CadastroForm({
           CEP
           <input
             value={form.cep}
-            onChange={(event) => onChange('cep', event.target.value)}
+            onChange={(event) => onChange('cep', event.target.value.replace(/\D/g, '').slice(0, 8))}
+            inputMode="numeric"
+            pattern="[0-9]{8}"
+            maxLength={8}
             placeholder="00000-000"
           />
         </label>

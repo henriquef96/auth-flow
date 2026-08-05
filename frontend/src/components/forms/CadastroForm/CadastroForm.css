@@ -24,6 +24,14 @@
   max-width: 32rem;
 }
 
+.panel-header p.cep-status-loading {
+  color: #22c55e;
+}
+
+.panel-header p.cep-status-error {
+  color: #ef4444;
+}
+
 .panel-header span {
   color: var(--accent-amber);
   font-size: 0.95rem;

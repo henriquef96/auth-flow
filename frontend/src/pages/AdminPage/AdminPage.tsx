@@ -14,6 +14,8 @@ type AdminPageProps = {
   form: FormValues
   formLoading: boolean
   searchingCep: boolean
+  cepStatusMessage: string
+  cepStatusType: 'neutral' | 'loading' | 'error'
   onFormChange: (field: keyof FormValues, value: string) => void
   onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>
   onCancel: () => void
@@ -32,6 +34,8 @@ export function AdminPage({
   form,
   formLoading,
   searchingCep,
+  cepStatusMessage,
+  cepStatusType,
   onFormChange,
   onSubmit,
   onCancel,
@@ -56,6 +60,8 @@ export function AdminPage({
           form={form}
           loading={formLoading}
           searchingCep={searchingCep}
+          cepStatusMessage={cepStatusMessage}
+          cepStatusType={cepStatusType}
           editingId={editingId}
           onChange={onFormChange}
           onSubmit={onSubmit}

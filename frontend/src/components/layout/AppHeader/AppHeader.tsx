@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from 'react'
 import { AppLogo } from '../../AppLogo'
 import type { User } from '../../../types'
 import './AppHeader.css'
