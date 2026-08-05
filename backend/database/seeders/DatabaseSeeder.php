@@ -11,12 +11,20 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        Cadastro::factory()->count(10)->create();
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@authflow.test',
-            'password' => Hash::make('admin@test'),
-        ]);
+        if (!Cadastro::exists()) {
+            Cadastro::factory()
+                ->count(10)
+                ->create();
+        }
 
+        User::firstOrCreate(
+            [
+                'email' => 'admin@authflow.test',
+            ],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make('admin@test'),
+            ]
+        );
     }
 }
