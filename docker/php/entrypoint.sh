@@ -68,8 +68,15 @@ fi
 echo "Executando migrations..."
 php artisan migrate --seed --force
 
+if [ -n "$PORT" ] && [ -f "/etc/nginx/conf.d/default.conf" ]; then
+    echo "Configurando a porta do Nginx para ${PORT}..."
+    sed -i "s/listen 80;/listen ${PORT};/g" /etc/nginx/conf.d/default.conf
+    sed -i "s/\${PORT}/${PORT}/g" /etc/nginx/conf.d/default.conf
+fi
+
 echo "=================================="
 echo "Laravel iniciado com sucesso!"
 echo "=================================="
 
+nginx &
 exec "$@"
