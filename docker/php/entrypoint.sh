@@ -58,14 +58,15 @@ done
 
 echo "PostgreSQL disponível."
 
-
-if ! grep -q "APP_KEY=base64" .env; then
+if [ -z "$APP_KEY" ] && ! grep -q "APP_KEY=base64" .env; then
     echo "Gerando APP_KEY..."
     php artisan key:generate --force
+else
+    echo "APP_KEY já configurada, ignorando geração."
 fi
 
 echo "Executando migrations..."
-    php artisan migrate --seed --force
+php artisan migrate --seed --force
 
 echo "=================================="
 echo "Laravel iniciado com sucesso!"
