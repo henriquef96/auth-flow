@@ -51,8 +51,12 @@
     padding: 2rem;
 }
 
+.panel-header-content{
+margin-top: -25px;
+}
+
 .login-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
 }
 
 @media (max-width: 960px) {

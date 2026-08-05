@@ -35,8 +35,8 @@ export function LoginPage({
 
       <section className="auth-card">
         <div className="panel-header">
-          <div>
-            <h2 className="login-title">Bem-vindo de volta</h2>
+          <div className="panel-header-content">
+            <h2 className="login-title">Bem-vindo de volta!</h2>
             <p>Insira seu e-mail e senha para acessar.</p><br />
           </div>
         </div>

@@ -14,7 +14,7 @@ export function AppHeader({ user, onLogout }: AppHeaderProps) {
         <AppLogo />
         <div>
           <strong>Auth Flow</strong>
-          <p>Sistema de cadastros com login, edicao e listagem</p>
+          <p>Sistema de cadastros com login, edição e listagem.</p>
         </div>
       </div>
 
