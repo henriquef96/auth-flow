@@ -10,10 +10,11 @@ services:
       - ./backend:/var/www/html
     ports:
       - "9000:9000"
+    depends_on:
+      database:
+        condition: service_healthy
     networks:
       - app-network
-    depends_on:
-      - database
 
   nginx:
     image: nginx:alpine
@@ -24,6 +25,8 @@ services:
     volumes:
       - ./backend:/var/www/html
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
     networks:
       - app-network
 
@@ -38,7 +41,12 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d laravel"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     networks:
       - app-network
 

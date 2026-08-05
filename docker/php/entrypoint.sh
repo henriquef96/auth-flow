@@ -2,9 +2,60 @@
 
 set -e
 
-if [ ! -d "vendor" ]; then
-    echo "Instalando dependências do Composer..."
-    composer install --no-interaction --prefer-dist
+cd /var/www/html
+
+echo "=================================="
+echo "Inicializando Laravel..."
+echo "=================================="
+
+echo "Configurando permissões..."
+
+mkdir -p storage/framework/cache/data
+mkdir -p storage/framework/sessions
+mkdir -p storage/framework/views
+mkdir -p storage/logs
+mkdir -p bootstrap/cache
+
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
+
+
+if [ ! -f ".env" ]; then
+    echo "Criando arquivo .env..."
+    cp .env.example .env
 fi
+
+
+if [ ! -f "vendor/autoload.php" ]; then
+    echo "Instalando dependências do Composer..."
+
+    export COMPOSER_PROCESS_TIMEOUT=0
+
+    composer install \
+        --no-interaction \
+        --prefer-dist \
+        --optimize-autoloader
+fi
+
+echo "Aguardando PostgreSQL..."
+
+until pg_isready -h postgres_db -p 5432 -U postgres; do
+    sleep 2
+done
+
+echo "PostgreSQL disponível."
+
+
+if ! grep -q "APP_KEY=base64" .env; then
+    echo "Gerando APP_KEY..."
+    php artisan key:generate --force
+fi
+
+echo "Executando migrations..."
+    php artisan migrate --seed --force
+
+echo "=================================="
+echo "Laravel iniciado com sucesso!"
+echo "=================================="
 
 exec "$@"
