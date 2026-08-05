@@ -30,6 +30,9 @@ COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 WORKDIR /var/www/html
 
+# Copia todo o conteúdo da pasta backend para a raiz do HTML no container
+COPY backend/ /var/www/html/
+
 COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN chmod +x /usr/local/bin/entrypoint.sh
