@@ -19,8 +19,7 @@ RUN docker-php-ext-install \
     exif \
     pcntl \
     bcmath \
-    gd \
-    opcache
+    gd
 
 COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
