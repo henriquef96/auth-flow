@@ -19,12 +19,10 @@ mkdir -p bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 
-
 if [ ! -f ".env" ]; then
     echo "Criando arquivo .env..."
     cp .env.example .env
 fi
-
 
 if [ ! -f "vendor/autoload.php" ]; then
     echo "Instalando dependências do Composer..."
@@ -68,15 +66,16 @@ fi
 echo "Executando migrations..."
 php artisan migrate --seed --force
 
-if [ -n "$PORT" ] && [ -f "/etc/nginx/conf.d/default.conf" ]; then
-    echo "Configurando a porta do Nginx para ${PORT}..."
-    sed -i "s/listen 80;/listen ${PORT};/g" /etc/nginx/conf.d/default.conf
-    sed -i "s/\${PORT}/${PORT}/g" /etc/nginx/conf.d/default.conf
+echo "Configurando a porta do Nginx..."
+PORT="${PORT:-80}"
+
+if [ -f "/etc/nginx/conf.d/default.conf" ]; then
+    sed -i "s/\${PORT}/$PORT/g" /etc/nginx/conf.d/default.conf
 fi
 
 echo "=================================="
 echo "Laravel iniciado com sucesso!"
 echo "=================================="
 
-nginx
-exec "$@"
+php-fpm -D
+exec nginx -g 'daemon off;'
