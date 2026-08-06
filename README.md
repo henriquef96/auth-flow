@@ -55,6 +55,7 @@ Na raiz do projeto:
 
 ```bash
 docker compose up -d --build
+docker compose up
 ```
 
 Isso sobe três serviços:
@@ -65,9 +66,9 @@ Isso sobe três serviços:
 | `nginx`    | Servidor web, expõe a API           | 8000        |
 | `database` | PostgreSQL                          | 5432        |
 
-O `entrypoint.sh` do container `app` instala automaticamente as dependências do Composer no primeiro start, além de gerar a chave de app, migração e inserçaõ de dados fake.
+O `entrypoint.sh` do container `app` instala automaticamente as dependências do Composer no primeiro start, além de gerar a ENV, chave de app, migrações e inserção de dados para teste.
 
-O seeder cria um usuário de teste:
+O seeder cria um usuário admin:
 - **E-mail:** `admin@authflow.test`
 - **Senha:** `admin@test`
 
